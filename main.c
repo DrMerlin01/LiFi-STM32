@@ -7,105 +7,97 @@
 #include "stm32f10x_dma.h"
 #include "misc.h"
 
-int Array[32]={9};//для символа
-int resultArray=0;
+int Array[20]={9};//для символа
+int resultArray[9]={0};
 int Array2[8]={1,2,4,8,16,32,64,128};//коэффициенты для преобразования кодировки в символ
 extern int c, j=0;
 extern int adc_value;
+extern int cnts;
 extern volatile char ADC_IT_AWD_FLAG;
-int countArray = 0, flag=0, temp=0;
-int count = -1;
+int countArray = 0;
+extern int count = -1, flag=0, temp=0;
 int symbolCode=0;
-int firstWorkTimer=0, flagLed=0, f=0;
+int firstWorkTimer=0;
+extern int f=0;//временно для теста
 
 void TIM4_IRQHandler()//запумкаем таймер 6 для запуска цап дма
 {
     TIM_ClearITPendingBit(TIM4, TIM_IT_Update);//очищаем бит переполнения таймера
 
+    if (firstWorkTimer==1)//синхронизация ацп и цап
+	{
+		TIM4->ARR = 2300;
+	}
+
     if (c == 1){
-    	//if(GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_0) == 1){//проверяем сигнал на ножке
-			TIM_Cmd(TIM6, ENABLE);//Запускаем таймер 6
-							c = 0;
-			if (count==-1) {
-					count++;
-					flag=1;//устанавливаем для записи старт бита в переменную temp
-			}
-    	//}
+    	if(GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_0) == 1){//проверяем сигнал на ножке
+    		TIM_Cmd(TIM6, ENABLE);//Запускаем таймер 6
+			//GPIO_SetBits(GPIOA,GPIO_Pin_8);
+			c = 0;
+    	}
     }
+
+    firstWorkTimer++;
 }
 
 void TIM2_IRQHandler()//обработка даннных (прием)
 {
 	TIM_ClearITPendingBit(TIM2, TIM_IT_Update);//очищаем бит переполнения таймера
 
-	GPIO_SetBits(GPIOA,GPIO_Pin_8);
-
-	if (firstWorkTimer==1)//синхронизация ацп и цап
-	{
-		TIM4->ARR = 2300;
-	}
-
 	adc_value = ADC_GetConversionValue(ADC1);
 
-	if(count == 32){
-		for(int i = 0;i < 32; i++){
-			//symbolCode += Array[i]*Array2[i];
+	if(count == 20){
+		for(int i = 0;i < 20; i++){
 			if(i%2!=0){
 				number_output(Array[i]);
-				//Lcd_write_str(" ");
-				if(j<9){
-					if(i!=1){
-					//resultArray += Array[i]*Array2[j];
+				/*if(j<9){
+					resultArray[j] = Array[i];
 					j++;
-					}
-				}
+				}*/
 			}
 		}
 
-		for(int i = 0;i < 32; i++){
-			Array[i] = 0;
-		}
+		/*for(int i = 0; i < 9; i++){
+			symbolCode += resultArray[i]*Array2[i-1];//получение кода символа
+			resultArray[i]=0;
+		}*/
 
-		//Lcd_write_data(resultArray);
+		//Lcd_write_data(symbolCode);
 		//Lcd_write_str(" ");
-		count =-1;
-		flag = 0;
+		//symbolCode=0;//очищаем переменную в которой хранится код символа
+		count=0;
+		flag=0;
+		//if(f==0) f++;
+		//else count=0;
 
-		if (f==0) f++;
-		else count = 0;
+		if (f == 0) {
+			TIM_Cmd(TIM2, DISABLE);//Запускаем таймер
+			NVIC_DisableIRQ(TIM2_IRQn);//Разрешаем прерывание
+			cnts--;
+			f++;
+		}
 	}
 
 	if(flag == 2){
-
-			if((temp < adc_value)){
-				Array[countArray] = 0;
-				//number_output(Array[countArray]);
-				countArray++;
-				count++;
-				temp = adc_value;
-			} else if((adc_value < temp)){
-				Array[countArray] = 1;
-				//number_output(Array[countArray]);
-				countArray++;
-				count++;
-				temp = adc_value;
-			} else {
-				if(count != 0) {
-				Array[countArray]=Array[countArray-1];
-				//number_output(Array[countArray]);
-				countArray++;
-				count++;
-				}
+		if((temp < adc_value)){
+			Array[countArray] = 0;
+			//number_output(Array[countArray]);
+			countArray++;
+			count++;
+			temp = adc_value;
+		} else if((adc_value < temp)){
+			Array[countArray] = 1;
+			//number_output(Array[countArray]);
+			countArray++;
+			count++;
+			temp = adc_value;
+		} else {
+			if(count != 0) {
+			Array[countArray]=Array[countArray-1];
+			//number_output(Array[countArray]);
+			countArray++;
+			count++;
 			}
-
-		if(flagLed==0){//отключаем сторожевой режим у АЦП
-			NVIC_InitTypeDef NVIC_InitStructure;//Объявляем структуру для регистрации прирывания АЦП
-			NVIC_InitStructure.NVIC_IRQChannel = ADC1_IRQn;//Выбирает тип прерывания
-			NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;//Устанавливаем приоритет прерывания
-			NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;//Устанавливаем подприоритет прерывания
-			NVIC_InitStructure.NVIC_IRQChannelCmd = DISABLE;//Запускаем прерывание
-			NVIC_Init(&NVIC_InitStructure);
-			flagLed=1;
 		}
 	}
 
@@ -113,9 +105,6 @@ void TIM2_IRQHandler()//обработка даннных (прием)
 		temp = adc_value;//для получения значения сравнения (старт бита) в переменную temp
 		flag=2;//чтобы пропустить старт бит при записи значения
 	}
-
-    firstWorkTimer++;
-    GPIO_ResetBits(GPIOA,GPIO_Pin_8);
 }
 
 void main(void)
@@ -139,13 +128,10 @@ void main(void)
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;//Низкая скорость
 	GPIO_Init(GPIOA, &GPIO_InitStructure);//инициализация режима работы порта
 
-
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;//порт для синхронизации двух таймеров 6 и 2
-		GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;//Настройка на вход с подтяжкой к питанию
-		GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;//Низкая скорость
-		GPIO_Init(GPIOA, &GPIO_InitStructure);//инициализация режима работы порта
-
-	int a=0;	//переменная для получения значения из АЦП
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;//Настройка на вход с подтяжкой к питанию
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;//Низкая скорость
+	GPIO_Init(GPIOA, &GPIO_InitStructure);//инициализация режима работы порта
 
 	//Таймер 4 частота срабатывания 5 Гц или 1.17 кГц или 2 кГц
 	TIM4->PSC = 5;//предделитель 1000, 5, 5
@@ -158,8 +144,7 @@ void main(void)
 	TIM2->PSC = 5;//предделитель 1000, 5, 5
 	TIM2->ARR = 1200;//период 4100
 	TIM_ITConfig(TIM2, TIM_IT_Update, ENABLE);//по обновлению счетного регистра
-	TIM_Cmd(TIM2, ENABLE);//Запускаем таймер
-	NVIC_EnableIRQ(TIM2_IRQn);//Разрешаем прерывание
+
 
     while (1){
 			/*Lcd_goto(0,0);

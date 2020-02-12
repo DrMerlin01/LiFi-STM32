@@ -56,10 +56,6 @@ void ADCInit()
 	ADC_StartCalibration(ADC1);//начать калибровку АЦП1
 	while(ADC_GetCalibrationStatus(ADC1));//проверка окончания калибровки АЦП1
 
-	//int del=72000; while (del--){}
-	//ADC_Cmd(ADC1, ENABLE);//запускаем АЦП
-	//ADC_Cmd(ADC1, ENABLE);//запускаем АЦП
-	//ADC_Cmd(ADC1, ENABLE);//запускаем АЦП
 	ADC_SoftwareStartConvCmd(ADC1, ENABLE);//Запуск преобразований в бесконечном режиме, так как настроена непрерываная работа
 
 	//RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3,ENABLE);//включаем тактирование таймера 3
@@ -83,12 +79,19 @@ void ADC1_IRQHandler()
 {
     if(ADC_GetITStatus(ADC1, ADC_IT_AWD))//Проверяем установлен ли бит прерывания по сторожевому таймеру
     {
-    	/*if (cnts == 0) {
-    	int del=72000; while (del--){
-    		adc_value = ADC_GetConversionValue(ADC1);
-    	}
-    	cnts = 1;
-    	}*/
+    	if (cnts == 0) {
+    		TIM_Cmd(TIM2, ENABLE);//Запускаем таймер
+    		NVIC_EnableIRQ(TIM2_IRQn);//Разрешаем прерывание
+    		cnts++;
+    		f--;
+		}
+
+    	if (count == -1) {
+			count++;
+			temp=0;
+			flag=1;//устанавливаем для записи старт бита в переменную temp
+		}
+
         ADC_IT_AWD_FLAG = 1;//Устанавливаем глобальный флаг, что были приняты данные в 1
         ADC_ClearITPendingBit(ADC1, ADC_IT_AWD);//Очищаем бит прерывания
     }

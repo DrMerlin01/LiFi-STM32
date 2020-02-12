@@ -10,34 +10,44 @@
 <info part="DefaultEditorWorkbook">
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="1"/>
-<part id="0"/>
 <part id="2"/>
+<part id="1"/>
 <part id="3"/>
 <part id="4"/>
+<part id="0"/>
+<part id="5"/>
+<part id="6"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="dac_dma.h" partName="dac_dma.h" path="E:/WORKS/dac_dma.h" title="dac_dma.h" tooltip="E:/WORKS/dac_dma.h" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/NIRS/dac_dma.h"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2111" selectionTopPixel="470"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1957" selectionTopPixel="350"/>
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="adc.h" partName="adc.h" path="E:/WORKS/adc.h" title="adc.h" tooltip="E:/WORKS/adc.h" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/NIRS/adc.h"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="216" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="276" selectionTopPixel="0"/>
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="adc.c" partName="adc.c" path="E:/WORKS/adc.c" title="adc.c" tooltip="E:/WORKS/adc.c" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/NIRS/adc.c"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1855" selectionTopPixel="680"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="4512" selectionTopPixel="1090"/>
 </editor>
 <editor activePart="true" focus="true" id="org.eclipse.cdt.ui.editor.CEditor" name="main.c" partName="main.c" path="E:/WORKS/main.c" title="main.c" tooltip="E:/WORKS/main.c" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/NIRS/main.c"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="860" selectionTopPixel="60"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="830" selectionTopPixel="350"/>
 </editor>
 <editor id="org.eclipse.cdt.ui.editor.CEditor" name="dac_dma.c" partName="dac_dma.c" path="E:/WORKS/dac_dma.c" title="dac_dma.c" tooltip="E:/WORKS/dac_dma.c" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/NIRS/dac_dma.c"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2618" selectionTopPixel="350"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2302" selectionTopPixel="280"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="lcd.c" partName="lcd.c" path="E:/WORKS/lcd.c" title="lcd.c" tooltip="E:/WORKS/lcd.c" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/NIRS/lcd.c"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2154" selectionTopPixel="620"/>
+</editor>
+<editor id="org.eclipse.cdt.ui.editor.CEditor" name="lcd.h" partName="lcd.h" path="E:/WORKS/lcd.h" title="lcd.h" tooltip="E:/WORKS/lcd.h" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/NIRS/lcd.h"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="22" selectionTopPixel="0"/>
 </editor>
 </editors>
 <views>
@@ -253,161 +263,159 @@
 <editors>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/NIRS/main.c"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/NIRS/dac_dma.c"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/NIRS/adc.c"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/NIRS/lcd.c"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/NIRS/adc.h"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/NIRS/dac_dma.h"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/NIRS/adc.c"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" path="/NIRS/adc.h"/>
 </editors>
-<item historyLabel="lcd.c" index="3">
-<position info="not_deleted" x="2128" y="499"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="1589" y="0"/>
-</item>
-<item historyLabel="lcd.c" index="3">
-<position info="not_deleted" x="4551" y="13"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="1589" y="0"/>
-</item>
-<item historyLabel="lcd.c" index="3">
-<position info="not_deleted" x="4551" y="13"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="1589" y="0"/>
-</item>
-<item historyLabel="lcd.c" index="3">
-<position info="not_deleted" x="4551" y="13"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="1589" y="0"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="1597" y="0"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="1580" y="13"/>
-</item>
-<item historyLabel="lcd.c" index="3">
-<position info="not_deleted" x="4551" y="13"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="1590" y="0"/>
-</item>
-<item historyLabel="lcd.c" index="3">
-<position info="not_deleted" x="4551" y="13"/>
-</item>
-<item historyLabel="lcd.c" index="3">
-<position info="not_deleted" x="4621" y="13"/>
-</item>
-<item historyLabel="lcd.c" index="3">
-<position info="not_deleted" x="25" y="13"/>
-</item>
-<item historyLabel="adc.c" index="2">
-<position info="not_deleted" x="4406" y="0"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="1590" y="0"/>
-</item>
-<item historyLabel="lcd.c" index="3">
-<position info="not_deleted" x="25" y="13"/>
-</item>
-<item historyLabel="lcd.c" index="3">
-<position info="not_deleted" x="162" y="14"/>
-</item>
-<item historyLabel="lcd.c" index="3">
-<position info="not_deleted" x="2120" y="14"/>
-</item>
-<item historyLabel="lcd.c" index="3">
-<position info="not_deleted" x="2154" y="12"/>
-</item>
-<item historyLabel="lcd.c" index="3">
-<position info="not_deleted" x="726" y="12"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="1590" y="0"/>
-</item>
-<item historyLabel="dac_dma.c" index="1">
-<position info="not_deleted" x="29" y="11"/>
-</item>
-<item historyLabel="lcd.c" index="3">
-<position info="not_deleted" x="726" y="12"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="1590" y="0"/>
-</item>
-<item historyLabel="lcd.c" index="3">
-<position info="not_deleted" x="2428" y="0"/>
-</item>
-<item historyLabel="dac_dma.c" index="1">
-<position info="not_deleted" x="29" y="11"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="1587" y="0"/>
-</item>
-<item historyLabel="lcd.c" index="3">
-<position info="not_deleted" x="4551" y="13"/>
-</item>
-<item historyLabel="lcd.c" index="3">
-<position info="not_deleted" x="4621" y="13"/>
-</item>
-<item historyLabel="lcd.c" index="3">
-<position info="not_deleted" x="25" y="13"/>
-</item>
-<item historyLabel="lcd.c" index="3">
-<position info="not_deleted" x="229" y="14"/>
-</item>
-<item historyLabel="lcd.c" index="3">
-<position info="not_deleted" x="2120" y="14"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="1580" y="13"/>
-</item>
-<item historyLabel="lcd.c" index="3">
-<position info="not_deleted" x="2151" y="0"/>
-</item>
-<item historyLabel="adc.c" index="2">
-<position info="not_deleted" x="4406" y="0"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="1423" y="0"/>
-</item>
-<item historyLabel="adc.c" index="2">
-<position info="not_deleted" x="4406" y="0"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="852" y="31"/>
-</item>
-<item historyLabel="dac_dma.c" index="1">
-<position info="not_deleted" x="2618" y="0"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="1337" y="4"/>
-</item>
-<item historyLabel="dac_dma.c" index="1">
-<position info="not_deleted" x="2618" y="0"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="1337" y="4"/>
-</item>
-<item historyLabel="dac_dma.c" index="1">
-<position info="not_deleted" x="2618" y="0"/>
-</item>
-<item historyLabel="main.c" index="0">
-<position info="not_deleted" x="1337" y="4"/>
+<item historyLabel="adc.c" index="3">
+<position info="not_deleted" x="4245" y="0"/>
 </item>
 <item historyLabel="adc.h" index="4">
-<position info="not_deleted" x="216" y="0"/>
+<position info="not_deleted" x="183" y="0"/>
 </item>
-<item historyLabel="dac_dma.h" index="5">
+<item historyLabel="main.c" index="0">
+<position info="not_deleted" x="830" y="0"/>
+</item>
+<item historyLabel="dac_dma.h" index="2">
+<position info="not_deleted" x="2021" y="0"/>
+</item>
+<item historyLabel="dac_dma.c" index="1">
+<position info="not_deleted" x="3572" y="0"/>
+</item>
+<item historyLabel="main.c" index="0">
+<position info="not_deleted" x="1718" y="0"/>
+</item>
+<item historyLabel="dac_dma.c" index="1">
+<position info="not_deleted" x="3572" y="0"/>
+</item>
+<item historyLabel="adc.c" index="3">
+<position info="not_deleted" x="4512" y="0"/>
+</item>
+<item historyLabel="dac_dma.h" index="2">
+<position info="not_deleted" x="2021" y="0"/>
+</item>
+<item historyLabel="dac_dma.c" index="1">
+<position info="not_deleted" x="1184" y="0"/>
+</item>
+<item historyLabel="main.c" index="0">
+<position info="not_deleted" x="1379" y="0"/>
+</item>
+<item historyLabel="dac_dma.c" index="1">
+<position info="not_deleted" x="3437" y="0"/>
+</item>
+<item historyLabel="main.c" index="0">
+<position/>
+</item>
+<item historyLabel="dac_dma.c" index="1">
+<position/>
+</item>
+<item historyLabel="main.c" index="0">
+<position/>
+</item>
+<item historyLabel="dac_dma.c" index="1">
+<position/>
+</item>
+<item historyLabel="main.c" index="0">
+<position info="not_deleted" x="965" y="0"/>
+</item>
+<item historyLabel="dac_dma.c" index="1">
+<position info="not_deleted" x="3501" y="0"/>
+</item>
+<item historyLabel="main.c" index="0">
+<position info="not_deleted" x="1040" y="0"/>
+</item>
+<item historyLabel="dac_dma.c" index="1">
+<position info="not_deleted" x="3581" y="0"/>
+</item>
+<item historyLabel="main.c" index="0">
+<position info="not_deleted" x="949" y="7"/>
+</item>
+<item historyLabel="dac_dma.c" index="1">
+<position info="not_deleted" x="1367" y="1192"/>
+</item>
+<item historyLabel="main.c" index="0">
+<position info="not_deleted" x="1913" y="0"/>
+</item>
+<item historyLabel="adc.c" index="3">
+<position info="not_deleted" x="4365" y="152"/>
+</item>
+<item historyLabel="adc.h" index="4">
+<position info="not_deleted" x="183" y="0"/>
+</item>
+<item historyLabel="main.c" index="0">
+<position info="not_deleted" x="1898" y="0"/>
+</item>
+<item historyLabel="adc.c" index="3">
+<position info="not_deleted" x="4369" y="4"/>
+</item>
+<item historyLabel="adc.h" index="4">
+<position info="not_deleted" x="250" y="0"/>
+</item>
+<item historyLabel="main.c" index="0">
+<position info="not_deleted" x="577" y="0"/>
+</item>
+<item historyLabel="adc.c" index="3">
+<position info="not_deleted" x="4369" y="4"/>
+</item>
+<item historyLabel="adc.h" index="4">
+<position info="not_deleted" x="276" y="0"/>
+</item>
+<item historyLabel="adc.c" index="3">
+<position info="not_deleted" x="4512" y="0"/>
+</item>
+<item historyLabel="adc.h" index="4">
+<position info="not_deleted" x="276" y="0"/>
+</item>
+<item historyLabel="main.c" index="0">
+<position info="not_deleted" x="830" y="0"/>
+</item>
+<item historyLabel="dac_dma.h" index="2">
+<position info="not_deleted" x="1812" y="0"/>
+</item>
+<item historyLabel="dac_dma.c" index="1">
+<position info="not_deleted" x="2302" y="0"/>
+</item>
+<item historyLabel="main.c" index="0">
+<position info="not_deleted" x="830" y="0"/>
+</item>
+<item historyLabel="dac_dma.h" index="2">
 <position info="not_deleted" x="1832" y="0"/>
 </item>
-<item historyLabel="adc.c" index="6">
-<position info="not_deleted" x="1855" y="0"/>
+<item historyLabel="dac_dma.c" index="1">
+<position info="not_deleted" x="2302" y="0"/>
+</item>
+<item historyLabel="main.c" index="0">
+<position info="not_deleted" x="1286" y="0"/>
+</item>
+<item historyLabel="dac_dma.h" index="2">
+<position info="not_deleted" x="1832" y="0"/>
+</item>
+<item historyLabel="dac_dma.c" index="1">
+<position info="not_deleted" x="2302" y="0"/>
+</item>
+<item historyLabel="main.c" index="0">
+<position info="not_deleted" x="830" y="0"/>
+</item>
+<item historyLabel="dac_dma.c" index="1">
+<position info="not_deleted" x="2302" y="0"/>
+</item>
+<item historyLabel="dac_dma.h" index="2">
+<position info="not_deleted" x="1812" y="0"/>
+</item>
+<item historyLabel="dac_dma.c" index="1">
+<position info="not_deleted" x="2302" y="0"/>
+</item>
+<item historyLabel="main.c" index="0">
+<position info="not_deleted" x="518" y="0"/>
+</item>
+<item historyLabel="dac_dma.c" index="1">
+<position info="not_deleted" x="2302" y="0"/>
+</item>
+<item historyLabel="dac_dma.h" index="2">
+<position info="not_deleted" x="1957" y="0"/>
 </item>
 <item active="true" historyLabel="main.c" index="0">
-<position info="not_deleted" x="1758" y="0"/>
+<position info="not_deleted" x="518" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -416,6 +424,9 @@
 <actionBarAdvisor/>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="lcd.h" tooltip="NIRS/lcd.h">
+<persistable path="/NIRS/lcd.h"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="lcd.c" tooltip="NIRS/lcd.c">
 <persistable path="/NIRS/lcd.c"/>
 </file>
@@ -424,9 +435,6 @@
 </file>
 <file factoryID="org.eclipse.cdt.ui.ExternalEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="stdlib.h" tooltip="C:\Program Files (x86)\GNU Tools ARM Embedded\5.4 2016q3\arm-none-eabi\include\stdlib.h">
 <persistable path="C:\Program Files (x86)\GNU Tools ARM Embedded\5.4 2016q3\arm-none-eabi\include\stdlib.h" project="NIRS"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="lcd.h" tooltip="NIRS/lcd.h">
-<persistable path="/NIRS/lcd.h"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.cdt.ui.editor.CEditor" name="dac_dma.c" tooltip="NIRS/dac_dma.c">
 <persistable path="/NIRS/dac_dma.c"/>

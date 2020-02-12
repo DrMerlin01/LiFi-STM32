@@ -42,7 +42,7 @@ void DAC_DMAInit(void)
 	DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&(DAC->DHR12R1);//адрес памяти, куда передаем данные, в данном случае ЦАП
 	DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)&symbol;//ссылка на адрес памяти, с которого будет передача данных
 	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST;//направление передачи память периферия
-	DMA_InitStructure.DMA_BufferSize = 32;//размер буфера, который передаем
+	DMA_InitStructure.DMA_BufferSize = 20;//размер буфера, который передаем
 	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;//отключаем увеличение адреса в периферии при работе
 	DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;//включаем увеличение адреса данных в памяти
 	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;//размер посылки в периферии половина слова
@@ -64,7 +64,6 @@ int c = 0; //флаг для включения таймера 6
 void DMA1_Channel3_IRQHandler(void)
 {
 	DMA1->IFCR|=DMA_ISR_TCIF3; //сбрасываем флаг прерывания
-
 	TIM_Cmd(TIM6, DISABLE);//Отключаем таймер как только сработала передача
 	c = 1;
 }
