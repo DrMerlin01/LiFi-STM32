@@ -16,22 +16,18 @@ extern volatile char ADC_IT_AWD_FLAG;
 int countArray = 0, flag=0, temp=0;
 int count = -1;
 int symbolCode=0;
-int firstWorkTimer=0, flagLed=0, f=0;
+int flagLed=0, f=0 , cc=0;
 
 void TIM4_IRQHandler()//запумкаем таймер 6 для запуска цап дма
 {
     TIM_ClearITPendingBit(TIM4, TIM_IT_Update);//очищаем бит переполнения таймера
 
-    if (c == 1){
-    	//if(GPIO_ReadInputDataBit(GPIOA, GPIO_Pin_0) == 1){//проверяем сигнал на ножке
-			TIM_Cmd(TIM6, ENABLE);//Запускаем таймер 6
-							c = 0;
-			if (count==-1) {
-					count++;
-					flag=1;//устанавливаем для записи старт бита в переменную temp
-			}
-    	//}
-    }
+
+
+			//TIM_Cmd(TIM6, ENABLE);//Запускаем таймер 6
+
+
+
 }
 
 void TIM2_IRQHandler()//обработка даннных (прием)
@@ -40,17 +36,18 @@ void TIM2_IRQHandler()//обработка даннных (прием)
 
 	GPIO_SetBits(GPIOA,GPIO_Pin_8);
 
-	if (firstWorkTimer==1)//синхронизация ацп и цап
-	{
-		TIM4->ARR = 2300;
-	}
+	if (count==-1 && f == 0) {
+						count++;
+						flag=1;//устанавливаем для записи старт бита в переменную temp
+						f++;
+				}
 
 	adc_value = ADC_GetConversionValue(ADC1);
 
 	if(count == 32){
 		for(int i = 0;i < 32; i++){
 			//symbolCode += Array[i]*Array2[i];
-			if(i%2!=0){
+			if(i%2==0){
 				number_output(Array[i]);
 				//Lcd_write_str(" ");
 				if(j<9){
@@ -68,11 +65,19 @@ void TIM2_IRQHandler()//обработка даннных (прием)
 
 		//Lcd_write_data(resultArray);
 		//Lcd_write_str(" ");
-		count =-1;
-		flag = 0;
 
-		if (f==0) f++;
-		else count = 0;
+
+		if (cc==0) {
+			cc++;
+			count = -1;
+					flag = 0;
+					f=0;
+		}
+		else {
+			count = 0;
+			flag=3;
+			f=35;
+		}
 	}
 
 	if(flag == 2){
@@ -98,7 +103,7 @@ void TIM2_IRQHandler()//обработка даннных (прием)
 				}
 			}
 
-		if(flagLed==0){//отключаем сторожевой режим у АЦП
+		/*if(flagLed==0){//отключаем сторожевой режим у АЦП
 			NVIC_InitTypeDef NVIC_InitStructure;//Объявляем структуру для регистрации прирывания АЦП
 			NVIC_InitStructure.NVIC_IRQChannel = ADC1_IRQn;//Выбирает тип прерывания
 			NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;//Устанавливаем приоритет прерывания
@@ -106,7 +111,7 @@ void TIM2_IRQHandler()//обработка даннных (прием)
 			NVIC_InitStructure.NVIC_IRQChannelCmd = DISABLE;//Запускаем прерывание
 			NVIC_Init(&NVIC_InitStructure);
 			flagLed=1;
-		}
+		}*/
 	}
 
 	if(flag==1){
@@ -114,7 +119,7 @@ void TIM2_IRQHandler()//обработка даннных (прием)
 		flag=2;//чтобы пропустить старт бит при записи значения
 	}
 
-    firstWorkTimer++;
+
     GPIO_ResetBits(GPIOA,GPIO_Pin_8);
 }
 

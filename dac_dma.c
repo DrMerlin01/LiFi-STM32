@@ -60,11 +60,21 @@ void DAC_DMAInit(void)
 }
 
 int c = 0; //флаг для включения таймера 6
-
+int flagSend=0;
 void DMA1_Channel3_IRQHandler(void)
 {
+	if (firstWorkTimer==1)//синхронизация ацп и цап
+	{
+		TIM4->ARR = 2300;
+	}
+
 	DMA1->IFCR|=DMA_ISR_TCIF3; //сбрасываем флаг прерывания
 
-	TIM_Cmd(TIM6, DISABLE);//Отключаем таймер как только сработала передача
-	c = 1;
+	//flagSend++;
+	//TIM_Cmd(TIM6, DISABLE);//Отключаем таймер как только сработала передача
+
+	for (int u = 0; u < 32; u++) {
+		symbol[u] = symbols[u];
+	}
+	firstWorkTimer++;
 }
