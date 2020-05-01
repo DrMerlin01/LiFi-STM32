@@ -34,12 +34,18 @@ void ADCInit()
 
 	ADC_InitStructure.ADC_ContinuousConvMode = ENABLE;//непрерывная работа АЦП
 	ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;//выравнивание результата вправо
-	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;//Работа без триггера
+	ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigInjecConv_None;//Работа без триггера для инжект
 	ADC_InitStructure.ADC_Mode = ADC_Mode_Independent ;//Независимый режим работы между АЦП
 	ADC_InitStructure.ADC_NbrOfChannel = 1;//число каналов, с которыми работаем
 	ADC_InitStructure.ADC_ScanConvMode = ENABLE;//сканирование каналов
-	ADC_RegularChannelConfig(ADC1, ADC_Channel_1, 1, ADC_SampleTime_55Cycles5);//Время преобразования для 1 канала
+	//ADC_RegularChannelConfig(ADC1, ADC_Channel_1, 1, ADC_SampleTime_55Cycles5);//Время преобразования для 1 рег. канала
 	ADC_Init(ADC1, &ADC_InitStructure);//загружаем настройки
+
+	////////настройка для инжектированных каналов
+	ADC_InjectedSequencerLengthConfig(ADC1, 1);
+	ADC_InjectedChannelConfig(ADC1, ADC_Channel_1, 2, ADC_SampleTime_55Cycles5);
+	////////////
+
 
 	ADC_AnalogWatchdogThresholdsConfig(ADC1, 1570, 1185);//Определяем границы срабатывания для АЦП1
 	ADC_AnalogWatchdogSingleChannelConfig(ADC1, ADC_Channel_1);//Канал на котором работает АЦП в сторожевом режиме
@@ -56,11 +62,15 @@ void ADCInit()
 	ADC_StartCalibration(ADC1);//начать калибровку АЦП1
 	while(ADC_GetCalibrationStatus(ADC1));//проверка окончания калибровки АЦП1
 
+	ADC_AutoInjectedConvCmd(ADC1, ENABLE ); //Запуск преобразований в бесконечном режиме, так как настроена непрерываная работа ИНЖЕК КАНАЛЫ
+	ADC_SoftwareStartInjectedConvCmd(ADC1, ENABLE);
+
 	//int del=72000; while (del--){}
 	//ADC_Cmd(ADC1, ENABLE);//запускаем АЦП
 	//ADC_Cmd(ADC1, ENABLE);//запускаем АЦП
 	//ADC_Cmd(ADC1, ENABLE);//запускаем АЦП
-	ADC_SoftwareStartConvCmd(ADC1, ENABLE);//Запуск преобразований в бесконечном режиме, так как настроена непрерываная работа
+//	ADC_SoftwareStartConvCmd(ADC1, ENABLE);//Запуск преобразований в бесконечном режиме, так как настроена непрерываная работа РЕГ КАНАЛЫ
+
 
 	//RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3,ENABLE);//включаем тактирование таймера 3
 

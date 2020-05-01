@@ -1,18 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <history>
    <processor signature="5.4.1 -mcpu=cortex-m3 -mthumb -g -nostartfiles -Map=NIRS.map -O0 --gc-sections -LC:\CooCox\CoIDE\configuration\ProgramData\NIRS -TC:\CooCox\CoIDE\configuration\ProgramData\NIRS/arm-gcc-link.ld -g">
-      <target file="NIRS.elf" lastModified="170a611d9d1">
+      <target file="NIRS.elf" lastModified="171d1114f33">
          <source file="..\obj\stm32f10x_tim.o" lastModified="17010cab3be"/>
          <source file="..\obj\startup_stm32f10x_md_vl.o" lastModified="17010cab3fd"/>
          <source file="..\obj\system_stm32f10x.o" lastModified="17010cab47b"/>
-         <source file="..\obj\dac_dma.o" lastModified="170a611d7ab"/>
+         <source file="..\obj\dac_dma.o" lastModified="171d1114b2b"/>
          <source file="..\obj\stm32f10x_gpio.o" lastModified="17010cab57d"/>
          <source file="..\obj\stm32f10x_dac.o" lastModified="17010cab5db"/>
-         <source file="..\obj\main.o" lastModified="170a60fe263"/>
+         <source file="..\obj\main.o" lastModified="171d1114ba5"/>
          <source file="..\obj\stm32f10x_rcc.o" lastModified="17010cab6cc"/>
          <source file="..\obj\stm32f10x_adc.o" lastModified="17010cab73b"/>
-         <source file="..\obj\adc.o" lastModified="170a5e7f0c7"/>
+         <source file="..\obj\adc.o" lastModified="171d1114c0b"/>
          <source file="..\obj\stm32f10x_dma.o" lastModified="17010cab7d8"/>
+         <source file="..\obj\adc_mobile.o" lastModified="171d1114c7c"/>
          <source file="..\obj\lcd.o" lastModified="170a5e7f20b"/>
          <source file="..\obj\misc.o" lastModified="17010cab9a0"/>
       </target>

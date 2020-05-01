@@ -18,9 +18,9 @@ int count = -1;
 int symbolCode=0;
 int flagLed=0, f=0 , cc=0;
 
-void TIM4_IRQHandler()//запумкаем таймер 6 для запуска цап дма
+void TIM3_IRQHandler()//запумкаем таймер 3 для запуска цап дма
 {
-    TIM_ClearITPendingBit(TIM4, TIM_IT_Update);//очищаем бит переполнения таймера
+    TIM_ClearITPendingBit(TIM3, TIM_IT_Update);//очищаем бит переполнения таймера
 
 
 
@@ -42,13 +42,13 @@ void TIM2_IRQHandler()//обработка даннных (прием)
 						f++;
 				}
 
-	adc_value = ADC_GetConversionValue(ADC1);
-
+	//adc_value = ADC_GetConversionValue(ADC1); ДЛЯ РЕГ КАНАЛА
+	adc_value = ADC_GetInjectedConversionValue(ADC1,ADC_InjectedChannel_2); // ДЛЯ ИНЖЕК КАНАЛА
 	if(count == 32){
 		for(int i = 0;i < 32; i++){
 			//symbolCode += Array[i]*Array2[i];
 			if(i%2==0){
-				number_output(Array[i]);
+			//	number_output(Array[i]);
 				//Lcd_write_str(" ");
 				if(j<9){
 					if(i!=1){
@@ -126,7 +126,7 @@ void TIM2_IRQHandler()//обработка даннных (прием)
 void main(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;//создание структуры для инициализации порта А0 контроллера
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4,ENABLE);//включаем тактирование таймера 4
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3,ENABLE);//включаем тактирование таймера 4
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2,ENABLE);//включаем тактирование таймера 2
 
 	SystemInit();
@@ -137,6 +137,7 @@ void main(void)
 	Lcd_clear();//Очистка дисплея
 	Lcd_goto(0,0);//Установка курсора в начало
 
+	ADCMobileInit();
 	DAC_DMAInit();//инициализация ЦАП и ДМА
 
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;//Порт 0
@@ -152,16 +153,16 @@ void main(void)
 
 	int a=0;	//переменная для получения значения из АЦП
 
-	//Таймер 4 частота срабатывания 5 Гц или 1.17 кГц или 2 кГц
-	TIM4->PSC = 5;//предделитель 1000, 5, 5
-	TIM4->ARR = 1200;//период 4100, 4100, 2400
-	TIM_ITConfig(TIM4, TIM_IT_Update, ENABLE);//по обновлению счетного регистра
-	TIM_Cmd(TIM4, ENABLE);//Запускаем таймер
-	NVIC_EnableIRQ(TIM4_IRQn);//Разрешаем прерывание
+	//Таймер 3 частота срабатывания 5 Гц или 1.17 кГц или 2 кГц
+	TIM3->PSC = 5;//предделитель 1000, 5, 5
+	TIM3->ARR = 600;//период 4100, 4100, 2400 БЫЛО 1200
+	TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);//по обновлению счетного регистра
+	TIM_Cmd(TIM3, ENABLE);//Запускаем таймер
+	NVIC_EnableIRQ(TIM3_IRQn);//Разрешаем прерывание
 
 	//Таймер 2 частота срабатывания 5 Гц или 1.17 кГц или 2 кГц
 	TIM2->PSC = 5;//предделитель 1000, 5, 5
-	TIM2->ARR = 1200;//период 4100
+	TIM2->ARR = 600;//период 4100 БЫЛО 1200
 	TIM_ITConfig(TIM2, TIM_IT_Update, ENABLE);//по обновлению счетного регистра
 	TIM_Cmd(TIM2, ENABLE);//Запускаем таймер
 	NVIC_EnableIRQ(TIM2_IRQn);//Разрешаем прерывание

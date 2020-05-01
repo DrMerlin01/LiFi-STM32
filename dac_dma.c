@@ -15,8 +15,8 @@ void DAC_DMAInit(void)
 
 	//Таймер 6 частота срабатывания 1.17кГц или  5 Гц, 2 кГц (предделитель 5, а период 2400)
 	//(24 000 000 / (4100 * 1000)) - 5 Гц
-	TIM6->PSC = 5;//предделитель 5 или 1000
-	TIM6->ARR = 1200;//период 4100
+	TIM6->PSC = 5;//предделитель
+	TIM6->ARR = 600;// для 8 Гц, был период 2100
 	TIM_ITConfig(TIM6, TIM_DIER_UIE , ENABLE);//разрешаем запрос ДМА при обновлении счетного регистра
 	TIM_SelectOutputTrigger(TIM6, TIM_TRGOSource_Update);//выбирает режим вывода триггера по переполнению
 	TIM_Cmd(TIM6, ENABLE);//Запускаем таймер
@@ -40,9 +40,9 @@ void DAC_DMAInit(void)
 	DMA_DeInit(DMA1_Channel3);//настройки по умолчанию
 	DMA_StructInit(&DMA_InitStructure);//инициализация структуры
 	DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&(DAC->DHR12R1);//адрес памяти, куда передаем данные, в данном случае ЦАП
-	DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)&symbol;//ссылка на адрес памяти, с которого будет передача данных
+	DMA_InitStructure.DMA_MemoryBaseAddr = (uint32_t)&dataForSend;//ссылка на адрес памяти, с которого будет передача данных
 	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralDST;//направление передачи память периферия
-	DMA_InitStructure.DMA_BufferSize = 32;//размер буфера, который передаем
+	DMA_InitStructure.DMA_BufferSize = 1;//размер буфера, который передаем
 	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;//отключаем увеличение адреса в периферии при работе
 	DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;//включаем увеличение адреса данных в памяти
 	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_HalfWord;//размер посылки в периферии половина слова
@@ -65,16 +65,8 @@ void DMA1_Channel3_IRQHandler(void)
 {
 	if (firstWorkTimer==1)//синхронизация ацп и цап
 	{
-		TIM4->ARR = 2300;
+		TIM3->ARR = 1100; // 2300
 	}
-
 	DMA1->IFCR|=DMA_ISR_TCIF3; //сбрасываем флаг прерывания
-
-	//flagSend++;
-	//TIM_Cmd(TIM6, DISABLE);//Отключаем таймер как только сработала передача
-
-	for (int u = 0; u < 32; u++) {
-		symbol[u] = symbols[u];
-	}
 	firstWorkTimer++;
 }
