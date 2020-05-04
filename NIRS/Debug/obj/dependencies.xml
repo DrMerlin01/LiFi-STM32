@@ -8,6 +8,14 @@
       </source>
       <source file="..\..\..\cmsis\core_cmInstr.h" lastModified="16aee070e68">
       </source>
+      <source file="..\..\..\dac_dma.h" lastModified="171dff21b65">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_gpio.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_tim.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_dma.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_dac.h"/>
+      </source>
       <source file="..\..\..\stm_lib\inc\stm32f10x_tim.h" lastModified="16aee073578">
          <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
       </source>
@@ -16,8 +24,19 @@
       </source>
       <source file="..\..\..\cmsis_boot\stm32f10x_conf.h" lastModified="16aee070698">
       </source>
+      <source file="..\..\..\adc.h" lastModified="171dfec3117">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_gpio.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_adc.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_tim.h"/>
+         <include file="..\..\..\stm_lib\inc\misc.h"/>
+      </source>
       <source file="..\..\..\stm_lib\inc\stm32f10x_dma.h" lastModified="16aee0725d8">
          <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+      </source>
+      <source file="..\..\..\dac_dma.c" lastModified="171dff19009">
+         <include file="..\..\..\dac_dma.h"/>
       </source>
       <source file="..\..\..\stm_lib\src\stm32f10x_tim.c" lastModified="16aee073578">
          <include file="..\..\..\stm_lib\inc\stm32f10x_tim.h"/>
@@ -26,6 +45,17 @@
       <source file="..\..\..\stm_lib\src\stm32f10x_adc.c" lastModified="16aee074900">
          <include file="..\..\..\stm_lib\inc\stm32f10x_adc.h"/>
          <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
+      </source>
+      <source file="..\..\..\adc_mobile.h" lastModified="171df55c493">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_gpio.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_adc.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_tim.h"/>
+         <include file="..\..\..\stm_lib\inc\misc.h"/>
+      </source>
+      <source file="..\..\..\adc.c" lastModified="171dfee2fca">
+         <include file="..\..\..\adc.h"/>
       </source>
       <source file="..\..\..\stm_lib\src\stm32f10x_dma.c" lastModified="16aee0725d8">
          <include file="..\..\..\stm_lib\inc\stm32f10x_dma.h"/>
@@ -39,6 +69,9 @@
          <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
          <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
          <include file="..\..\..\stm_lib\inc\stm32f10x_gpio.h"/>
+      </source>
+      <source file="..\..\..\adc_mobile.c" lastModified="171dfe0fa27">
+         <include file="..\..\..\adc_mobile.h"/>
       </source>
       <source file="..\..\..\stm_lib\inc\stm32f10x_gpio.h" lastModified="16aee071250">
          <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
@@ -70,6 +103,13 @@
       </source>
       <source file="..\..\..\cmsis_boot\system_stm32f10x.h" lastModified="16aee070698">
       </source>
+      <source file="..\..\..\dac_mobile.h" lastModified="171df55f5a5">
+         <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_rcc.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_gpio.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_tim.h"/>
+         <include file="..\..\..\stm_lib\inc\stm32f10x_dac.h"/>
+      </source>
       <source file="..\..\..\cmsis_boot\system_stm32f10x.c" lastModified="16aee070698">
          <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
       </source>
@@ -77,6 +117,9 @@
          <include file="..\..\..\cmsis_boot\stm32f10x.h"/>
       </source>
       <source file="..\..\..\cmsis_boot\startup\startup_stm32f10x_md_vl.c" lastModified="16aee070698">
+      </source>
+      <source file="..\..\..\dac_mobile.c" lastModified="171dff04475">
+         <include file="..\..\..\dac_mobile.h"/>
       </source>
    </includePath>
 </dependencies>

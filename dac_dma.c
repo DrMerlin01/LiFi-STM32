@@ -1,8 +1,8 @@
 #include "dac_dma.h"
-
+///////////////////////////////////////////////////////////////////////////////////////////////
 void DAC_DMAInit(void)
 {
-	//RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA,ENABLE);//тактирование порта А
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA,ENABLE);//тактирование порта А
 	GPIO_InitTypeDef PORTA;//создание структр для порта А
 
 	GPIO_StructInit (&PORTA);//инициализация структуры
@@ -16,22 +16,19 @@ void DAC_DMAInit(void)
 	//Таймер 6 частота срабатывания 1.17кГц или  5 Гц, 2 кГц (предделитель 5, а период 2400)
 	//(24 000 000 / (4100 * 1000)) - 5 Гц
 	TIM6->PSC = 5;//предделитель
-	TIM6->ARR = 600;// для 8 Гц, был период 2100
+	TIM6->ARR = 600;// для 8 кГц, был период 1200
 	TIM_ITConfig(TIM6, TIM_DIER_UIE , ENABLE);//разрешаем запрос ДМА при обновлении счетного регистра
 	TIM_SelectOutputTrigger(TIM6, TIM_TRGOSource_Update);//выбирает режим вывода триггера по переполнению
 	TIM_Cmd(TIM6, ENABLE);//Запускаем таймер
-	//NVIC_EnableIRQ(TIM6_DAC_IRQn);
 
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_DAC, ENABLE);//тактирование DAC
 	DAC_InitTypeDef DAC_InitStructure;//структура для ЦАП
 
-	//DAC_DeInit();//отключаем
 	DAC_StructInit(&DAC_InitStructure); //инициализация структуры
 	DAC_InitStructure.DAC_Trigger = DAC_Trigger_T6_TRGO;//выбираем триггер для ЦАП 6
 	DAC_InitStructure.DAC_WaveGeneration = DAC_WaveGeneration_None;//не генерируем волны
 	DAC_InitStructure.DAC_OutputBuffer = DAC_OutputBuffer_Enable;//включаем выходной буфер
 	DAC_Init(DAC_Channel_1, &DAC_InitStructure);//настраиваем согласно заданным параметрам
-
 	DAC_Cmd(DAC_Channel_1, ENABLE);//запускаем ЦАП
 
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_DMA1, ENABLE);//тактирование DMA
@@ -59,14 +56,12 @@ void DAC_DMAInit(void)
 	DAC_DMACmd(DAC_Channel_1, ENABLE);//Запускаем работу ДМА с ЦАП
 }
 
-int c = 0; //флаг для включения таймера 6
-int flagSend=0;
 void DMA1_Channel3_IRQHandler(void)
 {
-	if (firstWorkTimer==1)//синхронизация ацп и цап
+	if (firstWorkTimer == 1)//синхронизация ацп и цап
 	{
-		TIM3->ARR = 1100; // 2300
+		TIM3->ARR = 300;
 	}
-	DMA1->IFCR|=DMA_ISR_TCIF3; //сбрасываем флаг прерывания
+	DMA1->IFCR|= DMA_ISR_TCIF3; //сбрасываем флаг прерывания
 	firstWorkTimer++;
 }
