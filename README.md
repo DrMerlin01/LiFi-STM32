@@ -9,3 +9,4 @@ received bytes to the original data.
   2. Add documentation
   3. Design the code style
   4. Increase the frequency of data reception
+  5. Fill in the electrical circuit
