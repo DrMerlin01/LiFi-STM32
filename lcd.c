@@ -1,204 +1,180 @@
 #include "lcd.h"
 
-void Lcd_write_str(uc8 *STRING)//запись строки
-{
-	char c; //символ из строки
-	while (c=*STRING++){//проходимся по всей строке
-	if(c>=192) Lcd_write_data(russian[c-192]);//если у нас русские символы
-	else Lcd_write_data(c);//иначе прочие
-	}
-}
+void WriteStrLCD(uc8 *STRING) {
+	char c;   
 
-void Lcd_goto(uc8 x,uc8 y)//позиция курсора
-{
-	switch(x)
-		{
-			case 0://определяем строку первая
-				Lcd_write_cmd(y|0x80);//позиция 00
-				break;
-			case 1://вторая
-				Lcd_write_cmd(0x40+y|0x80);//позиция по счету 40
-				break;
-			case 2://третья
-				Lcd_write_cmd(0x10+y|0x80);//позиция по счету согласно даташиту 14
-				break;
-			case 3://ну и четвертая
-				Lcd_write_cmd(0x50+y|0x80);//позиция по счету 54
-				break;
+	while (c = *STRING++) {   
+		if (c >= 192) {
+			WriteDataLCD(russian[c - 192]);    
+		} else {
+			WriteDataLCD(c); 
 		}
-}
-
-void Init_pin_out()
-{
-	RCC_APB2PeriphClockCmd(init_port, ENABLE);//тактирование порта В
-	GPIO_InitTypeDef init_pin;//создание структуры
-	init_pin.GPIO_Pin  = pin_e | pin_rs | pin_rw | pin_d7 | pin_d6 | pin_d5 | pin_d4;//определение портов
-	init_pin.GPIO_Mode = GPIO_Mode_Out_PP;//на вывод
-	init_pin.GPIO_Speed = GPIO_Speed_50MHz;//высокая скорость
-	GPIO_Init (port, &init_pin);//загружаем настройки в структуру
-}
-
-void Init_pin_in()
-{
-	RCC_APB2PeriphClockCmd(init_port, ENABLE);//тактирование порта В
-	GPIO_InitTypeDef init_pin;//создание структуры
-	init_pin.GPIO_Pin  =  pin_d7 | pin_d6 | pin_d5 | pin_d4 ;//определение портов
-	init_pin.GPIO_Mode = GPIO_Mode_IPD;//на вход
-	init_pin.GPIO_Speed = GPIO_Speed_50MHz;//высокая скорость
-	GPIO_Init (port, &init_pin);//загружаем настройки в структуру
-}
-
-void Lcd_write_cmd(uc8 cmd )
-{
-	Init_pin_out();//настройка портов на вывод
-	del=24000; while (del--){}//задержка
-	rs_0;//показываем что будут передаваться команды
-	GPIO_Write(port,((cmd>>4)<<lcd_shift));//передаем старшую часть
-	e_1;//начинаем передачу
-	del=10; while (del--){}//задержка
-	e_0;//заканчиваем передачу
-	GPIO_Write(port,(0x00)<<lcd_shift);//
-	GPIO_Write(port,((cmd&0x0F)<<lcd_shift));//передаем младшую часть
-	del=10; while (del--){}//задержка
-	e_1;//начинаем передачу
-	del=10; while (del--){}//задержка
-	e_0;rs_0;rw_0;//заканчиваем передачу
-}
-
-void Lcd_write_data(uint8_t data)
-{
-	Init_pin_out();//настрайка портов на вывод
-	GPIO_Write(port,((data>>4)<<lcd_shift));//передаем старшую часть
-	e_1;rs_1;//начинаем передачу данных
-	del=10; while (del--){}//задержка
-	e_0;//заканчиваем передачу
-	GPIO_Write(port,(0x00)<<lcd_shift);
-	GPIO_Write(port,((data&0x0F)<<lcd_shift));//передаем младшую часть
-	del=10; while (del--){}//задержка
-	e_1;rs_1;//начинаем передачу
-	del=10; while (del--){}//задержка
-	e_0;rs_0;rw_0;//заканчиваем
-	GPIO_Write(port,(0x00)<<lcd_shift);
-}
-
-void Init_lcd()//инициализация дисплея
-{
-	Init_pin_out();//настраиваем порты на вывод
-	del=72000; while (del--){}//задержка
-	Lcd_write_cmd(Function_set);//включить 4 битный режим
-	del=72000; while (del--){}//задержка
-	Lcd_write_cmd(Display_on_off_control);//включить дисплей, выключить курсор и мигание
-	del=72000; while (del--){}//задержка
-	Lcd_write_cmd(Display_clear);//очистка экрана
-	del=72000; while (del--){}//задержка
-    Lcd_write_cmd(Entry_mode_set);//выбрать режим установки
-}
-
-void Lcd_clear()
-{
-	Lcd_write_cmd(Display_clear);//передаем команду очистки дисплея
-}
-
-void Return_home()
-{
-	Lcd_write_cmd(0b0000001);//команда вернуться в начало дисплея
-}
-
-void Lcd_definechar(const uint8_t *pc,uint8_t char_code)//создание собственного символа
-{
-	uint8_t a;//храним здесь код символа
-	uint16_t i;//проходимся битам
-	a=(char_code<<3)|0x40;//записываем код символа
-	for (i=0; i<8; i++)
-	{
-		Lcd_write_cmd(a++);//передаем код в память
-		Lcd_write_data(pc[i]);//запсиываем данные
 	}
 }
 
-void Lcd_write_adc_number(float number)//доработать!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-{
+void SetLCDPosition(const uc8 x, const uc8 y) {
+	switch (x) {
+		case 0:  
+			WriteCmdLCD(y | 0x80);
+			break;
+		case 1:
+			WriteCmdLCD(0x40 + y | 0x80);
+			break;
+		case 2:
+			WriteCmdLCD(0x10 + y | 0x80);
+			break;
+		case 3:  
+			WriteCmdLCD(0x50 + y | 0x80);
+			break;
+	}
+}
+
+void InitPinOut(void) {
+	RCC_APB2PeriphClockCmd(INIT_PORT, ENABLE);  
+	GPIO_InitTypeDef init_pin; 
+	init_pin.GPIO_Pin = PIN_E | PIN_RS | PIN_RW | PIN_D7 | PIN_D6 | PIN_D5 | PIN_D4; 
+	init_pin.GPIO_Mode = GPIO_Mode_Out_PP; 
+	init_pin.GPIO_Speed = GPIO_Speed_50MHz; 
+	GPIO_Init(PORT, &init_pin);   
+}
+
+void InitPinIn(void) {
+	RCC_APB2PeriphClockCmd(INIT_PORT, ENABLE);  
+	GPIO_InitTypeDef init_pin; 
+	init_pin.GPIO_Pin = PIN_D7 | PIN_D6 | PIN_D5 | PIN_D4 ; 
+	init_pin.GPIO_Mode = GPIO_Mode_IPD; 
+	init_pin.GPIO_Speed = GPIO_Speed_50MHz; 
+	GPIO_Init(PORT, &init_pin);   
+}
+
+void WriteCmdLCD(uc8 cmd) {
+	InitPinOut();   
+	RunDelay(24000);
+	SET_RS_0;    
+	GPIO_Write(PORT, (cmd >> 4) << LCD_SHIFT);  
+	SET_E_1; 
+	RunDelay(10);
+	SET_E_0; 
+	GPIO_Write(PORT, 0x00 << LCD_SHIFT);
+	GPIO_Write(PORT, (cmd & 0x0F) << LCD_SHIFT);  
+	RunDelay(10);
+	SET_E_1; 
+	RunDelay(10);
+	SET_E_0;
+	SET_RS_0;
+	SET_RW_0; 
+}
+
+void WriteDataLCD(uint8_t data) {
+	InitPinOut();   
+	GPIO_Write(PORT, (data >> 4) << LCD_SHIFT);  
+	SET_E_1;
+	SET_RS_1;  
+	RunDelay(10);
+	SET_E_0; 
+	GPIO_Write(PORT, 0x00 << LCD_SHIFT);
+	GPIO_Write(PORT, (data & 0x0F) << LCD_SHIFT);  
+	RunDelay(10);
+	SET_E_1;
+	SET_RS_1; 
+	RunDelay(10);
+	SET_E_0;
+	SET_RS_0;
+	SET_RW_0;
+	GPIO_Write(PORT, 0x00 << LCD_SHIFT);
+}
+
+void InitLCD(void) {
+	InitPinOut();   
+	RunDelay(72000);
+	WriteCmdLCD(FUNCTION_SET);
+	RunDelay(72000);
+	WriteCmdLCD(DISPLAY_ON_OFF_CONTROL);
+	RunDelay(72000);
+	WriteCmdLCD(DISPLAY_CLEAR); 
+	RunDelay(72000);
+    WriteCmdLCD(ENTRY_MODE_SET);  
+}
+
+void ClearLCD(void) {
+	WriteCmdLCD(DISPLAY_CLEAR);   
+}
+
+void ReturnHome(void) {
+	WriteCmdLCD(0b0000001);    
+}
+
+void PrintDefinechar(const uint8_t *pc, uint8_t char_code) {
+	uint8_t code = (char_code << 3) | 0x40;
+	 
+	for (uint16_t i = 0; i < 8; ++i) {
+		WriteCmdLCD(code++);   
+		WriteDataLCD(pc[i]); 
+	}
+}
+
+void WriteADCNumberLCD(const float number) {
 	int integer_part, fractional_part, int_from_frac, frac_from_frac;
 	float edit_adc_value;
 
-	edit_adc_value = (3.3/4096.0)*number*1000;//преобразуем значение в Вольты
+	edit_adc_value = (3.3 / 4096.0) * number * 1000;   
 
-	integer_part = edit_adc_value/1000; //получение целой части напряжения
-	number_output(integer_part);//вывод целой части
-	Lcd_write_str(".");
+	integer_part = edit_adc_value / 1000;    
+	PrintNumber(integer_part);  
+	WriteStrLCD(".");
 
-	if (integer_part!=0)//проверка на отличие целой части от 0
-	{
-		fractional_part = (int)edit_adc_value%1000;//получение дробной части
+	if (integer_part != 0) {
+		fractional_part = (int)edit_adc_value % 1000;  
 	}
 
-	int_from_frac = fractional_part/100;//получение целой сотой части от дробной
-	number_output(int_from_frac);//вывод
+	int_from_frac = fractional_part / 100;     
+	PrintNumber(int_from_frac);
 
-	frac_from_frac = fractional_part%100;//получение остатка от деления дробной чатси на 100
-	number_output(frac_from_frac/10);//вывод
-	number_output(frac_from_frac%10);//вывод
-	Lcd_write_str(" ");
+	frac_from_frac = fractional_part % 100;
+	PrintNumber(frac_from_frac / 10);
+	PrintNumber(frac_from_frac % 10);
+	WriteStrLCD(" ");
 }
 
-void number_output(int number)
-{
-	switch(number)
-	{
+void PrintNumber(const int number) {
+	switch(number) {
 		case 0:
-		{
-			Lcd_write_str("0");
+			WriteStrLCD("0");
 			break;
-		}
 		case 1:
-		{
-			Lcd_write_str("1");
+			WriteStrLCD("1");
 			break;
-		}
 		case 2:
-		{
-			Lcd_write_str("2");
+			WriteStrLCD("2");
 			break;
-		}
 		case 3:
-		{
-			Lcd_write_str("3");
+			WriteStrLCD("3");
 			break;
-		}
 		case 4:
-		{
-			Lcd_write_str("4");
+			WriteStrLCD("4");
 			break;
-		}
 		case 5:
-		{
-			Lcd_write_str("5");
+			WriteStrLCD("5");
 			break;
-		}
 		case 6:
-		{
-			Lcd_write_str("6");
+			WriteStrLCD("6");
 			break;
-		}
 		case 7:
-		{
-			Lcd_write_str("7");
+			WriteStrLCD("7");
 			break;
-		}
 		case 8:
-		{
-			Lcd_write_str("8");
+			WriteStrLCD("8");
 			break;
-		}
 		case 9:
-		{
-			Lcd_write_str("9");
+			WriteStrLCD("9");
 			break;
-		}
 		default:
-		{
-			Lcd_write_str("error");
+			WriteStrLCD("error");
 			break;
-		}
 	}
+}
+
+void RunDelay(const int tick) {
+	int delay = tick;
+	while (--delay);
 }

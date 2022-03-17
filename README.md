@@ -6,8 +6,6 @@ received bytes to the original data.
   2. CooCox CoIDE Version: 1.7.8
   3. STM32F10x
 # Future plans
-  1. Remove extra code 
-  2. Add documentation
-  3. Design the code style
-  4. Increase the frequency of data reception
-  5. Fill in the electrical circuit
+  1. Add documentation
+  2. Increase the frequency of data reception
+  3. Fill in the electrical circuit
