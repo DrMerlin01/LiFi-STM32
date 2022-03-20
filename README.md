@@ -8,4 +8,3 @@ received bytes to the original data.
 # Future plans
   1. Add documentation
   2. Increase the frequency of data reception
-  3. Fill in the electrical circuit
